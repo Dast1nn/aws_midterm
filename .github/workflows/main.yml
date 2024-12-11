@@ -47,7 +47,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/aws
+          images: ${{ secrets.DOCKER_USERNAME }}/aws_midterm
           tags: |
             type=ref,event=tag
             type=ref,event=pr
@@ -57,7 +57,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/aws:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/aws_midterm:latest
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -72,13 +72,13 @@ jobs:
   
       - name: Pull Docker Image
         run: |
-          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/aws:latest
+          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/aws_midterm:latest
   
       - name: Deploy Docker Container
         run: |
           sudo docker stop my-container || true
           sudo docker rm my-container || true
-          sudo docker run -d --name my-container -p 8080:5000 ${{ secrets.DOCKER_USERNAME }}/aws:latest
+          sudo docker run -d --name my-container -p 8080:5000 ${{ secrets.DOCKER_USERNAME }}/aws_midterm:latest
   
       - name: Clean up unused Docker resources
         run: |

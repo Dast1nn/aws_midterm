@@ -78,7 +78,7 @@ jobs:
         run: |
           sudo docker stop my-container || true
           sudo docker rm my-container || true
-          sudo docker run -d --name my-container -p 8080:5000 ${{ secrets.DOCKER_USERNAME }}/aws_midterm:latest
+          sudo docker run -d --name my-container -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/aws_midterm:latest
   
       - name: Clean up unused Docker resources
         run: |
